@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AL ESTUDIO — Páginas que venden y bots que contestan solos</title>
+<meta content="En Chihuahua: páginas web que cierran ventas y bots que contestan tu WhatsApp a cualquier hora. Sin plantillas, sin mensualidades escondidas." name="description"/>
+<link href="assets/img/favicon.svg" rel="icon" type="image/svg+xml"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="assets/js/tailwind.config.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&amp;family=Hanken+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="assets/css/brutal.css" rel="stylesheet"/>
+</head>
+<body class="bg-surface text-on-surface min-h-screen flex flex-col font-body-md selection:bg-secondary-container selection:text-primary" data-page="inicio">
+
+<div data-component="header"></div>
+
+<main class="flex-grow flex flex-col items-center w-full">
+
+    <!-- ============ HERO ============ -->
+    <section class="w-full max-w-7xl px-margin-mobile md:px-margin-desktop py-14 md:py-20 flex flex-col items-start gap-7 border-b-border-width-thick border-primary">
+        <div class="flex flex-wrap items-center gap-3 font-label-mono text-label-mono">
+            <span class="bg-primary text-on-primary px-2 py-1">SAN LUIS POTOSÍ</span>
+            <span class="brutal-border bg-secondary-container text-primary px-2 py-1">
+                <span class="hidden sm:inline">SON LAS </span><span id="reloj">--:--</span><span class="hidden sm:inline"> · JUE-MAR 7:30PM-2AM</span><span class="sm:hidden"> · JUE-MAR 7:30PM-2AM</span>
+            </span>
+        </div>
+
+        <h1 class="font-headline-xl text-[38px] leading-[40px] sm:text-[52px] sm:leading-[54px] md:text-headline-xl text-primary max-w-5xl uppercase break-words">
+            TE ESCRIBEN A LAS<br/>
+            <span class="bg-secondary-container px-3 brutal-border inline-block">11 DE LA NOCHE</span><br/>
+            Y NADIE CONTESTA
+        </h1>
+
+        <p class="font-body-lg text-body-lg text-on-surface max-w-2xl brutal-border p-5 bg-surface-container-lowest brutal-shadow">
+            Ese cliente ya le escribió a otro. Nosotros hacemos dos cosas para que no vuelva a pasar:
+            <strong>una página que sí cierra la venta</strong> y <strong>un bot que contesta tu WhatsApp a cualquier hora</strong>,
+            con tus precios y tu forma de hablar.
+        </p>
+
+        <div class="flex flex-wrap gap-4 mt-2">
+            <a class="font-button-text text-button-text bg-secondary-container text-primary px-7 py-4 brutal-border-thick brutal-shadow brutal-sink uppercase flex items-center gap-2" data-wa="Hola AL Estudio, quiero que mi negocio deje de perder clientes por no contestar. ¿Me pueden ayudar?" href="index.html#">
+                <span class="material-symbols-outlined">chat</span>
+                HABLEMOS POR WHATSAPP
+            </a>
+            <a class="font-button-text text-button-text bg-surface-container-lowest text-primary px-7 py-4 brutal-border-thick brutal-shadow brutal-sink uppercase flex items-center gap-2" href="trabajo.html">
+                <span class="material-symbols-outlined">folder_open</span>
+                VER LO QUE HACEMOS
+            </a>
+        </div>
+
+        <p class="font-label-mono text-label-mono text-outline">
+            Sin juntas de una hora. Nos cuentas por WhatsApp y te decimos si te conviene o no.
+        </p>
+    </section>
+
+    <!-- ============ LO QUE HACEMOS (índice, no tarjetas) ============ -->
+    <section class="w-full max-w-7xl px-margin-mobile md:px-margin-desktop py-14 md:py-20 flex flex-col gap-6 md:gap-2">
+
+        <!-- 01 · ancho completo, el número se sale por la izquierda -->
+        <a class="reveal fila-servicio group relative block bg-surface-container-lowest brutal-border-thick brutal-shadow-lg" href="servicios.html#bots">
+            <span aria-hidden="true" class="numero-fuera">01</span>
+            <div class="p-5 md:p-8 md:pl-16 flex flex-col md:flex-row md:items-end gap-4 md:gap-10">
+                <h2 class="font-headline-xl text-[34px] leading-[36px] md:text-[64px] md:leading-[60px] uppercase text-primary md:flex-1">
+                    BOTS QUE<br/>CONTESTAN
+                </h2>
+                <p class="font-body-md text-on-surface-variant md:max-w-xs md:pb-3">
+                    Sabe tus precios y tus horarios. Contesta en WhatsApp o Telegram, toma el pedido
+                    y te pasa el chat cuando el cliente ya quiere comprar.
+                </p>
+            </div>
+            <span class="flecha-fila">→</span>
+        </a>
+
+        <!-- 02 · negra, corrida a la derecha, ligeramente girada -->
+        <a class="reveal reveal-der fila-servicio group relative block bg-primary text-on-primary brutal-border-thick md:w-[86%] md:ml-auto md:-mt-4 rota-der brutal-shadow-acid" href="servicios.html#sitios">
+            <span aria-hidden="true" class="numero-fuera numero-claro">02</span>
+            <div class="p-5 md:p-8 md:pl-16 flex flex-col md:flex-row md:items-end gap-4 md:gap-10">
+                <h2 class="font-headline-xl text-[34px] leading-[36px] md:text-[64px] md:leading-[60px] uppercase text-secondary-container md:flex-1">
+                    PÁGINAS QUE<br/>VENDEN
+                </h2>
+                <p class="font-body-md text-inverse-on-surface md:max-w-xs md:pb-3">
+                    Carga rápido, se ve bien en el celular y todo lleva al mismo lugar: que te escriban.
+                    Tú le mueves a precios y fotos sin llamarnos.
+                </p>
+            </div>
+            <span class="flecha-fila flecha-clara">→</span>
+        </a>
+
+        <!-- 03 · verde, más angosta, pegada a la izquierda -->
+        <a class="reveal reveal-izq fila-servicio group relative block bg-secondary-container brutal-border-thick md:w-[72%] md:-mt-2 rota-izq brutal-shadow-lg" href="servicios.html#automatizacion">
+            <span aria-hidden="true" class="numero-fuera">03</span>
+            <div class="p-5 md:p-8 md:pl-16 flex flex-col md:flex-row md:items-end gap-4 md:gap-10">
+                <h2 class="font-headline-xl text-[34px] leading-[36px] md:text-[64px] md:leading-[60px] uppercase text-primary md:flex-1">
+                    TRABAJO QUE<br/>SE HACE SOLO
+                </h2>
+                <p class="font-body-md text-primary md:max-w-xs md:pb-3">
+                    Pasar pedidos a una hoja, mandar recordatorios, avisar cuando entra un cliente.
+                    Se conecta una vez y ya.
+                </p>
+            </div>
+            <span class="flecha-fila">→</span>
+        </a>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="w-full px-margin-mobile md:px-margin-desktop py-20 md:py-24 bg-primary text-on-primary border-t-border-width-thick border-secondary-container">
+        <div class="max-w-4xl mx-auto text-center flex flex-col items-center">
+            <div class="font-label-mono text-label-mono text-secondary-container mb-4 caret">CUÉNTANOS QUÉ NECESITAS</div>
+            <h2 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg uppercase mb-6">¿CUÁNTOS CLIENTES PERDISTE ESTA SEMANA POR NO CONTESTAR?</h2>
+            <p class="font-body-lg text-on-primary-container mb-8 max-w-2xl">Escríbenos y te decimos en el mismo chat si esto te sirve o no. Sin compromiso y sin discurso de ventas.</p>
+            <a class="bg-secondary-container text-primary brutal-border px-8 py-4 font-headline-lg text-headline-lg-mobile uppercase tracking-tighter brutal-shadow-light brutal-sink" data-wa="Hola AL Estudio, quiero saber si esto le sirve a mi negocio." href="index.html#">
+                ESCRIBIR POR WHATSAPP
+            </a>
+        </div>
+    </section>
+
+</main>
+
+<div data-component="footer"></div>
+<script src="assets/js/fondo.js"></script>
+<script src="assets/js/main.js"></script>
+<!-- Bot AC Crisol · burbuja de chat (canal web del worker) -->
+<script src="https://ac-bot-al-estudio.angeldavidlaredocalzadillas.workers.dev/widget.js"
+        data-tema="minimal"
+        data-color="#000000"
+        data-saludo="¿Buscas página, bot, o no sabes por dónde empezar?"></script>
+</body>
+</html>

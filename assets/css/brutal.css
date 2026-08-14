@@ -1,0 +1,699 @@
+/* ============================================================
+   AL ESTUDIO — KINETIC BRUTALIST
+   Utilidades unificadas de las 4 pantallas del mockup.
+   Cero radios, cero blur. Solo bordes duros y offsets sólidos.
+   ============================================================ */
+
+:root {
+    --primary: #000000;
+    --on-primary: #ffffff;
+    --acid: #E60033;
+    --surface: #f9f9f9;
+    --surface-lowest: #ffffff;
+    --outline-variant: #cfc4c5;
+    --border-standard: 2px;
+    --border-thick: 4px;
+}
+
+/* --- Reset mínimo ------------------------------------------------ */
+/* El widget del bot (AC Crisol) vive en un Shadow DOM sobre un
+   `div[data-forja-widget]`: el shadow ya lo aísla de este CSS, pero el
+   host sí es alcanzable, así que se excluye para no aplastarle la forma. */
+*:not([data-forja-widget]) { border-radius: 0 !important; }
+*:focus-visible {
+    outline: 3px solid var(--acid);
+    outline-offset: 2px;
+}
+html { scroll-behavior: smooth; }
+body { -webkit-font-smoothing: antialiased; }
+
+/* --- Bordes ------------------------------------------------------ */
+.brutal-border       { border: var(--border-standard) solid var(--primary); }
+.brutal-border-thick { border: var(--border-thick) solid var(--primary); }
+
+/* --- Sombras duras (offset stack) -------------------------------- */
+.brutal-shadow       { box-shadow: 4px 4px 0 0 var(--primary); }
+.brutal-shadow-lg    { box-shadow: 8px 8px 0 0 var(--primary); }
+.brutal-shadow-acid  { box-shadow: 8px 8px 0 0 var(--acid); }
+.brutal-shadow-acid-sm { box-shadow: 4px 4px 0 0 var(--acid); }
+.brutal-shadow-light { box-shadow: 8px 8px 0 0 rgba(255, 255, 255, 0.2); }
+
+/* El "hundido": al pasar/click el bloque cae sobre su propia sombra */
+.brutal-sink { transition: transform .12s ease-out, box-shadow .12s ease-out; }
+.brutal-sink:hover  { transform: translate(4px, 4px); box-shadow: 0 0 0 0 var(--primary); }
+.brutal-sink:active { transform: translate(6px, 6px); box-shadow: 0 0 0 0 var(--primary); }
+
+/* Variante del portafolio: la pieza se levanta y la sombra crece */
+.brutal-lift { transition: transform .18s cubic-bezier(.25,.46,.45,.94), box-shadow .18s cubic-bezier(.25,.46,.45,.94); }
+.brutal-lift:hover { transform: translate(-4px, -4px); box-shadow: 12px 12px 0 0 var(--primary); }
+.brutal-lift-acid  { transition: transform .18s cubic-bezier(.25,.46,.45,.94), box-shadow .18s cubic-bezier(.25,.46,.45,.94); }
+.brutal-lift-acid:hover { transform: translate(-4px, -4px); box-shadow: 12px 12px 0 0 var(--acid), 12px 12px 0 2px var(--primary); }
+
+/* --- Rejillas de fondo ------------------------------------------- */
+.bg-grid {
+    background-image:
+        linear-gradient(to right, rgba(0,0,0,.06) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0,0,0,.06) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+.bg-grid-lg {
+    background-image:
+        linear-gradient(to right, var(--outline-variant) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--outline-variant) 1px, transparent 1px);
+    background-size: 64px 64px;
+}
+.bg-hatch {
+    background-image: repeating-linear-gradient(45deg,
+        var(--primary) 0, var(--primary) 2px, transparent 2px, transparent 8px);
+}
+.bg-dots {
+    background-image: radial-gradient(var(--primary) 1.5px, transparent 1.5px);
+    background-size: 12px 12px;
+}
+
+/* --- Formularios -------------------------------------------------- */
+input, textarea, select {
+    border-radius: 0;
+    transition: box-shadow .12s ease-out, border-color .12s ease-out;
+}
+/* Especificidad extra: el plugin `forms` de Tailwind pisa el borde si no. */
+input.brutal-border, textarea.brutal-border, select.brutal-border {
+    border: var(--border-standard) solid var(--primary);
+}
+input:focus, textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 4px 4px 0 0 var(--acid);
+}
+input[aria-invalid="true"], textarea[aria-invalid="true"] {
+    border-color: #ba1a1a;
+    box-shadow: 4px 4px 0 0 #ba1a1a;
+}
+::placeholder { color: #7e7576; opacity: 1; }
+
+.field-error {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    line-height: 16px;
+    text-transform: uppercase;
+    color: #ba1a1a;
+    display: none;
+}
+.field-error.is-visible { display: block; }
+
+/* --- Navegación --------------------------------------------------- */
+.nav-link {
+    position: relative;
+    transition: background-color .1s, color .1s;
+}
+.nav-link:hover { background-color: var(--primary); color: var(--on-primary); }
+.nav-link[aria-current="page"] {
+    color: var(--primary);
+    font-weight: 700;
+    box-shadow: inset 0 -3px 0 0 var(--acid);
+}
+.nav-link[aria-current="page"]:hover { color: var(--acid); }
+
+/* Menú móvil */
+#mobile-menu { display: none; }
+#mobile-menu.is-open { display: block; }
+
+/* --- Cursor técnico ------------------------------------------------ */
+.cursor-crosshair, a, button { cursor: crosshair; }
+
+/* --- Cursor de terminal parpadeante --------------------------------- */
+.caret::after {
+    content: "";
+    display: inline-block;
+    width: .55ch;
+    height: 1em;
+    background: var(--acid);
+    margin-left: .25ch;
+    vertical-align: text-bottom;
+    animation: blink 1s steps(1) infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* --- Marquesina técnica del pie de página --------------------------- */
+.ticker { overflow: hidden; white-space: nowrap; }
+.ticker__track {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker 28s linear infinite;
+}
+@keyframes ticker { to { transform: translateX(-100%); } }
+
+/* --- Fondo vivo (canvas) -------------------------------------------- */
+#ac-fondo {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    pointer-events: none;
+}
+/* Todo el contenido va por encima del canvas */
+body > header,
+body > main,
+body > footer { position: relative; z-index: 1; }
+
+/* --- Revelado al hacer scroll --------------------------------------- */
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .5s cubic-bezier(.22,1,.36,1), transform .5s cubic-bezier(.22,1,.36,1);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+
+/* Entradas laterales, para que la rejilla no suba toda igual */
+.reveal-izq { transform: translateX(-28px); }
+.reveal-der { transform: translateX(28px); }
+.reveal-izq.is-visible, .reveal-der.is-visible { transform: none; }
+
+/* Escalonado dentro de una misma rejilla */
+.reveal[data-retardo="1"] { transition-delay: .08s; }
+.reveal[data-retardo="2"] { transition-delay: .16s; }
+.reveal[data-retardo="3"] { transition-delay: .24s; }
+
+/* --- Barra de progreso del scroll (en el header) --------------------- */
+.progreso {
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    height: 2px;
+    width: 0%;
+    background: var(--acid);
+    z-index: 2;
+}
+
+/* --- Diagramas que se arman al entrar en pantalla -------------------- */
+.paso {
+    opacity: 0;
+    transform: translateY(10px) scale(.98);
+    transition: opacity .45s ease-out, transform .45s ease-out;
+}
+.en-vista .paso { opacity: 1; transform: none; }
+.en-vista .paso:nth-child(2) { transition-delay: .12s; }
+.en-vista .paso:nth-child(3) { transition-delay: .24s; }
+.en-vista .paso:nth-child(4) { transition-delay: .36s; }
+.en-vista .paso:nth-child(5) { transition-delay: .48s; }
+.en-vista .paso:nth-child(6) { transition-delay: .60s; }
+
+/* El cable entre nodos se dibuja solo */
+.cable {
+    height: 24px;
+    width: 2px;
+    margin: 0 auto;
+    background: var(--primary);
+    transform-origin: top;
+    transform: scaleY(0);
+    transition: transform .35s ease-out;
+}
+.en-vista .cable { transform: scaleY(1); }
+.en-vista .cable:nth-of-type(2) { transition-delay: .18s; }
+
+/* Pulso que recorre el nodo activo del diagrama */
+@keyframes pulso-nodo {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(178, 244, 0, 0); }
+    50%      { box-shadow: 4px 4px 0 0 var(--acid); }
+}
+.en-vista .nodo-vivo { animation: pulso-nodo 2.4s ease-in-out infinite .8s; }
+
+/* La maqueta de UI se ensambla pieza por pieza */
+.en-vista .pieza-a { animation: caer .5s cubic-bezier(.22,1,.36,1) both .1s; }
+.en-vista .pieza-b { animation: caer .5s cubic-bezier(.22,1,.36,1) both .25s; }
+.en-vista .pieza-c { animation: caer .5s cubic-bezier(.22,1,.36,1) both .4s; }
+@keyframes caer {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* Chat que se escribe solo */
+.burbuja {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity .4s ease-out, transform .4s ease-out;
+}
+.en-vista .burbuja-1 { opacity: 1; transform: none; transition-delay: .3s; }
+.en-vista .burbuja-2 { opacity: 1; transform: none; transition-delay: 1.1s; }
+
+/* Contadores y cifras que suben */
+.cifra { font-variant-numeric: tabular-nums; }
+
+/* ============================================================
+   ASIMETRÍA
+   El brutalismo no es una cuadrícula perfecta. Estas clases
+   rompen la retícula a propósito: giros mínimos, bloques que se
+   salen del borde y anchos que no cierran.
+   ============================================================ */
+/* Ni los giros ni las sombras duras (que sobresalen 8px) deben generar
+   barra horizontal. Tiene que ir en html, no solo en body. */
+html, body { overflow-x: hidden; }
+
+.rota-izq, .rota-der { transition: transform .25s cubic-bezier(.22,1,.36,1); }
+
+@media (min-width: 768px) {
+    .rota-izq { transform: rotate(-0.55deg); }
+    .rota-der { transform: rotate(0.45deg); }
+    .rota-izq:hover, .rota-der:hover { transform: rotate(0deg) translate(-4px, -4px); }
+    /* Mientras no ha entrado en pantalla manda la animación de scroll */
+    .reveal.rota-izq:not(.is-visible),
+    .reveal.rota-der:not(.is-visible) { transform: translateY(24px); }
+}
+
+/* --- Filas de servicio (el índice de la home) ------------------------ */
+.fila-servicio {
+    transition: transform .25s cubic-bezier(.22,1,.36,1), box-shadow .25s ease-out;
+}
+.fila-servicio:hover { box-shadow: 12px 12px 0 0 var(--primary); }
+
+/* El número vive fuera del bloque y le corta el borde */
+.numero-fuera {
+    position: absolute;
+    top: 6px;
+    right: 10px;
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1;
+    color: var(--outline-variant);
+    pointer-events: none;
+}
+.numero-fuera.numero-claro { color: #7e7576; }
+
+@media (min-width: 768px) {
+    .numero-fuera {
+        top: 50%;
+        right: auto;
+        left: -30px;
+        transform: translateY(-50%);
+        font-size: 60px;
+        background: var(--surface);
+        padding: 6px 4px;
+        color: var(--primary);
+    }
+    .numero-fuera.numero-claro {
+        background: var(--primary);
+        color: var(--acid);
+    }
+}
+
+/* Flecha que empuja al pasar el mouse */
+.flecha-fila {
+    position: absolute;
+    right: 14px;
+    bottom: 12px;
+    font-size: 28px;
+    line-height: 1;
+    color: var(--primary);
+    transition: transform .25s cubic-bezier(.22,1,.36,1);
+}
+.flecha-fila.flecha-clara { color: var(--acid); }
+.fila-servicio:hover .flecha-fila { transform: translateX(10px); }
+
+/* ============================================================
+   MARCO DE PREVIEW
+   La imagen de cada proyecto es la página completa, no una foto.
+   El marco la recorta y la tira se recorre: sola en móvil (no hay
+   cursor) y al pasar el mouse en escritorio.
+   ============================================================ */
+.marco {
+    --marco: 260px;               /* móvil: alto visible del preview */
+    position: relative;
+    height: var(--marco);
+    overflow: hidden;
+    border-bottom: var(--border-standard) solid var(--primary);
+    background: var(--surface-container, #eee);
+}
+.marco--video {
+    --marco: 330px;
+    background: var(--primary);
+}
+.marco--video video { width: 100%; height: 100%; object-fit: cover; }
+
+/* `picture` es inline por defecto: sin esto, el width:100% de la tira
+   no tiene contra qué resolverse y la imagen colapsa a 0. */
+.marco picture {
+    display: block;
+    width: 100%;
+}
+.marco .tira {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: translateY(0);
+    transition: transform .7s cubic-bezier(.22,1,.36,1);
+}
+
+/* Captura de pantalla (un panel, no un sitio): se ve completa y quieta.
+   Nada de recorrerla — no hay nada que recorrer. */
+.captura {
+    border-bottom: var(--border-standard) solid var(--primary);
+    background: var(--primary);
+}
+.captura img { display: block; width: 100%; height: auto; }
+
+/* Etiqueta que avisa que eso se mueve */
+.marco__pista {
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    z-index: 2;
+    font-size: 10px;
+    letter-spacing: .06em;
+    background: var(--primary);
+    color: var(--acid);
+    padding: 3px 6px;
+    pointer-events: none;
+    opacity: .9;
+}
+
+@media (min-width: 768px) {
+    .marco { --marco: 300px; }
+    .marco--video { --marco: 420px; }
+}
+
+/* ESCRITORIO · el mouse manda: recorre al pasar por encima */
+@media (hover: hover) and (pointer: fine) {
+    .marco:hover .tira,
+    article:hover .marco .tira {
+        /* el -100% es la altura de la propia tira: la sube completa
+           menos lo que mide el marco */
+        transform: translateY(calc(-100% + var(--marco)));
+        transition: transform 4.5s linear;
+    }
+}
+
+/* MÓVIL · las tarjetas del catálogo se quedan QUIETAS. El recorrido pasa
+   dentro del visor (el marco de iPhone) cuando el usuario toca una. */
+@keyframes recorrer {
+    0%, 10%   { transform: translateY(0); }
+    50%, 60%  { transform: translateY(calc(-100% + var(--marco))); }
+    100%      { transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .marco .tira { animation: none !important; transition: none !important; }
+}
+
+/* ============================================================
+   CATÁLOGO MÓVIL (2 columnas, tipo tienda)
+   En el celular el portafolio no es un muro de publicaciones: es un
+   catálogo. Dos por renglón, tarjetas quietas, y el sitio se ve
+   corriendo al tocarlas — dentro del marco del teléfono.
+   ============================================================ */
+@media (max-width: 767px) {
+    #grid-proyectos {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        align-items: start;
+    }
+    /* nada de giros ni sangrías aquí: el catálogo va a cuadrícula */
+    #grid-proyectos > article {
+        transform: none !important;
+        margin: 0 !important;
+        box-shadow: 4px 4px 0 0 var(--primary);
+    }
+    #grid-proyectos > article.brutal-shadow-acid { box-shadow: 4px 4px 0 0 var(--acid); }
+
+    /* La miniatura: proporción de teléfono, quieta */
+    #grid-proyectos .marco,
+    #grid-proyectos .captura,
+    #grid-proyectos .marco--video {
+        height: auto;
+        aspect-ratio: 3 / 4;
+        overflow: hidden;
+    }
+    #grid-proyectos .marco .tira,
+    #grid-proyectos .captura img {
+        animation: none !important;
+        transform: none !important;
+    }
+    #grid-proyectos .captura img { object-fit: cover; height: 100%; }
+    #grid-proyectos .marco--video video { height: 100%; }
+
+    /* La pista cambia de mensaje: aquí se toca, no se espera */
+    #grid-proyectos .marco__pista {
+        right: 6px;
+        bottom: 6px;
+        font-size: 9px;
+        padding: 2px 5px;
+    }
+
+    /* Texto compacto de catálogo */
+    #grid-proyectos article h2 {
+        font-size: 15px;
+        line-height: 17px;
+    }
+    #grid-proyectos article > div:nth-child(3) { padding: 10px; gap: 6px; }
+    #grid-proyectos .cuerpo-largo,
+    #grid-proyectos .tags-tarjeta { display: none; }
+    #grid-proyectos article > div:last-child {
+        padding: 8px 10px;
+        font-size: 10px;
+    }
+    #grid-proyectos article > div:first-child { padding: 8px 10px; }
+    #grid-proyectos article > div:first-child span { font-size: 9px; }
+}
+
+/* ============================================================
+   VISOR — el marco de iPhone
+   Se abre al tocar una tarjeta. Dentro, el sitio se recorre solo.
+   ============================================================ */
+#visor {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px;
+    background: rgba(15, 15, 15, .92);
+}
+#visor.is-open { display: flex; }
+
+.telefono {
+    position: relative;
+    width: min(72vw, 290px);
+    aspect-ratio: 9 / 19.5;
+    background: #000;
+    border: 10px solid #1b1b1b;
+    /* Un teléfono tiene esquinas redondeadas: esta es la única excepción
+       al "cero radios" del sistema, porque representa un objeto físico. */
+    border-radius: 44px !important;
+    box-shadow: 0 0 0 2px var(--acid), 10px 10px 0 0 rgba(178, 244, 0, .25);
+    overflow: hidden;
+}
+.telefono__pantalla {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 34px !important;
+    background: #000;
+}
+
+/* Barra de estado: negra, sólida y con la isla dentro. Así la isla nunca
+   tapa el contenido del sitio — el sitio empieza debajo de la barra. */
+.telefono__status {
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 42px;
+    z-index: 4;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-family: -apple-system, "SF Pro Text", "Hanken Grotesk", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: .02em;
+}
+.telefono__status .señal { display: flex; align-items: center; gap: 4px; }
+.telefono__status svg { display: block; }
+
+/* La isla: píldora, no muesca colgando */
+.telefono__isla {
+    position: absolute;
+    top: 9px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 82px;
+    height: 25px;
+    background: #0b0b0b;
+    border-radius: 999px !important;
+    z-index: 5;
+    box-shadow: inset 0 0 0 1px #171717;
+}
+/* la cámara, para que la píldora no se lea como una barra vacía */
+.telefono__isla::after {
+    content: "";
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 9px;
+    height: 9px;
+    background: #1c1c1e;
+    border-radius: 999px !important;
+    box-shadow: inset 0 0 0 1px #2b2b2e;
+}
+
+/* El lienzo empieza DEBAJO de la barra de estado */
+.telefono__lienzo {
+    position: absolute;
+    inset: 42px 0 0 0;
+    overflow: hidden;
+    background: #111;
+}
+.telefono__lienzo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    animation: recorrer-visor var(--dur, 18s) ease-in-out infinite;
+}
+/* Si la captura es más corta que la pantalla no se anima: se estira para
+   cubrir. Nunca debe quedar hueco blanco debajo. */
+.telefono__lienzo.es-corta img {
+    animation: none;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+}
+/* El tope se calcula contra la propia imagen (-100% es su altura real
+   renderizada), así nunca se pasa de largo ni deja hueco al final.
+   Lo único que se mide por JS es el alto de la pantalla. */
+@keyframes recorrer-visor {
+    0%, 6%   { transform: translateY(0); }
+    54%, 62% { transform: translateY(calc(-100% + var(--alto-pantalla, 480px))); }
+    100%     { transform: translateY(0); }
+}
+
+.visor__barra {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    max-width: min(92vw, 420px);
+    width: 100%;
+    justify-content: space-between;
+}
+.visor__titulo {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: .04em;
+}
+.visor__cerrar {
+    background: var(--acid);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 8px 14px;
+    min-height: 44px;
+    cursor: pointer;
+}
+.visor__wa {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--acid);
+    color: var(--primary);
+    border: 2px solid var(--primary);
+    font-family: "JetBrains Mono", monospace;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    padding: 14px 18px;
+    min-height: 52px;
+    width: min(92vw, 420px);
+    box-shadow: 5px 5px 0 0 var(--primary);
+}
+body.visor-abierto { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+    .telefono__pantalla img { animation: none; }
+}
+
+/* ============================================================
+   DENSIDAD MÓVIL
+   El sitio no está "adaptado" a móvil: está pensado ahí.
+   Menos aire muerto, tipografía más apretada, botones que se
+   alcanzan con el pulgar.
+   ============================================================ */
+@media (max-width: 767px) {
+    /* Botones y CTA: ancho completo y altura de dedo (44px+) */
+    a.font-button-text,
+    button.font-button-text,
+    .cta-movil {
+        width: 100%;
+        justify-content: center;
+        min-height: 52px;
+        align-items: center;
+    }
+    /* Los que son etiqueta o filtro no: esos siguen siendo chicos */
+    [data-filtro], .marco__pista, .nav-link, header a, footer a {
+        width: auto;
+        min-height: 0;
+    }
+
+    /* Secciones más compactas: cabe más contenido por pantalla */
+    main > section { padding-top: 40px; padding-bottom: 40px; }
+    main > section > * + * { margin-top: 0; }
+
+    /* Texto de lectura un punto más chico y más apretado */
+    .font-body-lg, .text-body-lg { font-size: 17px; line-height: 25px; }
+    .font-body-md, .text-body-md { font-size: 15px; line-height: 22px; }
+
+    /* Las tarjetas se pegan más entre ellas */
+    #grid-proyectos { gap: 18px; }
+
+    /* Nada de sombras de 8px comiendo ancho */
+    .brutal-shadow-lg, .brutal-shadow-acid { box-shadow: 5px 5px 0 0 var(--primary); }
+    .brutal-shadow-acid { box-shadow: 5px 5px 0 0 var(--acid); }
+}
+
+/* --- Rejilla desordenada del portafolio ------------------------------ */
+@media (min-width: 1024px) {
+    .desfase-1 { margin-top: 3.5rem; }
+    .desfase-2 { margin-top: 1.5rem; }
+    .desfase-3 { margin-top: 5rem; }
+}
+/* En móvil el desorden es lateral y mínimo: no puede robar ancho */
+@media (max-width: 767px) {
+    .sangria-izq { margin-right: 14px; }
+    .sangria-der { margin-left: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .ticker__track, .caret::after { animation: none; }
+    .brutal-sink, .brutal-lift, .brutal-lift-acid { transition: none; }
+}
+
+/* --- Material Symbols ---------------------------------------------- */
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    user-select: none;
+}
+.material-symbols-outlined.filled { font-variation-settings: 'FILL' 1; }
+
+/* --- Toast de estado ------------------------------------------------ */
+/* Va a la IZQUIERDA: la esquina derecha es de la burbuja del bot. */
+#toast {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 100;
+    max-width: min(92vw, 420px);
+    transform: translateY(140%);
+    transition: transform .25s cubic-bezier(.25,.46,.45,.94);
+}
+#toast.is-visible { transform: translateY(0); }
