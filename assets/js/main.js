@@ -13,8 +13,7 @@
         whatsappBonito: "614 107 3188",
         ciudad: "San Luis Potosí, S.L.P.",
         nav: [
-            { label: "INICIO", href: "index.html", id: "inicio" },
-            { label: "TRABAJO", href: "trabajo.html", id: "trabajo" },
+            { label: "TRABAJOS", href: "index.html", id: "trabajo" },
             { label: "SERVICIOS", href: "servicios.html", id: "servicios" },
             { label: "CONTACTO", href: "contacto.html", id: "contacto" }
         ]
